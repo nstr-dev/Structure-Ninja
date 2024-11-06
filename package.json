@@ -43,6 +43,7 @@
 		"vitest": "^2.0.4"
 	},
 	"dependencies": {
+		"@sentry/browser": "^8.37.1",
 		"lucide-svelte": "^0.454.0"
 	}
 }
