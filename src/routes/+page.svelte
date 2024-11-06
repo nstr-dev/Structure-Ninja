@@ -1,2 +1,15 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
+<script>
+	import Button from '$lib/components/ui/button/button.svelte';
+	import LoaderCircle from 'lucide-svelte/icons/loader-circle';
+
+	let count = 0;
+	function incrementCount() {
+		count++;
+	}
+</script>
+
+<Button onclick={incrementCount}>
+	<LoaderCircle class="mr-2 size-4 animate-spin" />
+	Clicked {count}
+	{count === 1 ? 'time' : 'times'}
+</Button>
