@@ -19,4 +19,4 @@ build-job:
   image: oven/bun
   script:
     - bun i --frozen-lockfile --production
-    - bun build
+    - bun run build
