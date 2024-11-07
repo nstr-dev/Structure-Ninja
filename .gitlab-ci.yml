@@ -1,0 +1,22 @@
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+
+stages:
+  - test
+  - build
+
+test-job:
+  stage: test
+  image: oven/bun
+  script:
+    - bun i --frozen-lockfile
+    - bun test
+    - bun check
+
+build-job:
+  stage: build
+  image: oven/bun
+  script:
+    - bun i --frozen-lockfile --production
+    - bun build
