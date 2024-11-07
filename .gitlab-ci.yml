@@ -18,5 +18,5 @@ build-job:
   stage: build
   image: oven/bun
   script:
-    - bun i --frozen-lockfile --production
+    - bun i --frozen-lockfile
     - bun run build
