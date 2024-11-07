@@ -1,7 +1,8 @@
-FROM oven/bun:latest
+FROM node:20
 COPY . /app
 WORKDIR /app
-RUN bun install
-RUN bun run build
+RUN npm ci
+RUN npm run build
 EXPOSE 4173
-CMD ["bun", "run", "preview"]
+ENV HOST=0.0.0.0
+CMD ["npm", "run", "preview"]
