@@ -4,9 +4,7 @@
 	let loading = true;
 
 	onMount(() => {
-		setTimeout(() => {
-			loading = false;
-		}, 50);
+		loading = false;
 	});
 </script>
 

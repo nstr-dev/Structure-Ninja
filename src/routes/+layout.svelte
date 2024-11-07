@@ -2,6 +2,7 @@
 	import { PUBLIC_SENTRY_DSN } from '$env/static/public';
 	import Header from '$lib/components/header/header.svelte';
 	import LoadingScreen from '$lib/components/loading-screen/loading-screen.svelte';
+	import { Toaster } from '$lib/components/ui/sonner';
 	import * as Sentry from '@sentry/browser';
 	import { ModeWatcher } from 'mode-watcher';
 	import '../app.css';
@@ -14,7 +15,8 @@
 
 <ModeWatcher />
 <LoadingScreen />
+<Toaster />
 <Header />
-<main class="mt-16 flex flex-1 justify-center">
+<main class="mt-16 flex max-w-full flex-1 justify-center">
 	{@render children()}
 </main>
