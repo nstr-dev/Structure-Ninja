@@ -3,6 +3,7 @@
 	"version": "0.0.1",
 	"type": "module",
 	"scripts": {
+		"audit": "better-npm-audit audit",
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview --host",
@@ -51,6 +52,7 @@
 	},
 	"dependencies": {
 		"@sentry/browser": "^8.37.1",
+		"better-npm-audit": "^3.11.0",
 		"lucide-svelte": "^0.454.0",
 		"mode-watcher": "^0.4.1"
 	}
