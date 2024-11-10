@@ -94,6 +94,7 @@
 	<Form.Field {form} name="jsonInput">
 		<Form.Control>
 			{#snippet children({ props })}
+				<h2 class="my-2">JSON Input</h2>
 				<Form.Label>Paste your JSON-contents here:</Form.Label>
 				<Textarea
 					{...props}

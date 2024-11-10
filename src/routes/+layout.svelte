@@ -2,6 +2,7 @@
 	import { PUBLIC_SENTRY_DSN } from '$env/static/public';
 	import Header from '$lib/components/header/header.svelte';
 	import LoadingScreen from '$lib/components/loading-screen/loading-screen.svelte';
+	import MobileScreen from '$lib/components/mobile-screen/mobile-screen.svelte';
 	import { Toaster } from '$lib/components/ui/sonner';
 	import * as Sentry from '@sentry/browser';
 	import { ModeWatcher } from 'mode-watcher';
@@ -14,6 +15,7 @@
 </script>
 
 <ModeWatcher />
+<MobileScreen />
 <LoadingScreen />
 <Toaster />
 <Header />
