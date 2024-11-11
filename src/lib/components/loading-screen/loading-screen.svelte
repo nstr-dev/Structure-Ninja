@@ -19,4 +19,15 @@
 			<LoaderCircle class="size-12 animate-spin" />
 		</div>
 	</div>
+	<style>
+		body {
+			pointer-events: none;
+		}
+	</style>
+{:else}
+	<style>
+		body {
+			pointer-events: auto;
+		}
+	</style>
 {/if}

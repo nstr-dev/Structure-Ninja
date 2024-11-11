@@ -81,7 +81,6 @@
 			bind:this={paneLeft}
 			class="prose max-w-none p-4 transition-[flex] dark:prose-invert"
 		>
-			<h2>JSON Input</h2>
 			<JsonInputForm {currentBentoFocus} {resizeBento} {form} />
 		</Resizable.Pane>
 
