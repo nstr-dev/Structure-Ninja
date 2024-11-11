@@ -8,15 +8,15 @@ stages:
 
 test-job:
   stage: test
-  image: oven/bun
+  image: node:20
   script:
-    - bun i --frozen-lockfile
-    - bun test
-    - bun check
+    - npm i
+    - npm run test
+    - npm run check
 
 build-job:
   stage: build
-  image: oven/bun
+  image: node:20
   script:
-    - bun i --frozen-lockfile
-    - bun run build
+    - npm i
+    - npm run build

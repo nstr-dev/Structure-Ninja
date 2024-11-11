@@ -18,13 +18,16 @@
 	import { page } from '$app/stores';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import * as Form from '$lib/components/ui/form/index.js';
+	import * as Tabs from '$lib/components/ui/tabs/index.js';
 	import { Textarea } from '$lib/components/ui/textarea/index.js';
 	import { parseAndValidateJsonReturnError } from '$lib/logic/jsonFactory';
 	import { toastDismiss } from '$lib/utils';
 	import Check from 'lucide-svelte/icons/check';
 	import Eraser from 'lucide-svelte/icons/eraser';
 	import History from 'lucide-svelte/icons/history';
+	import ListCheck from 'lucide-svelte/icons/list-check';
 	import MoveRight from 'lucide-svelte/icons/move-right';
+	import Radio from 'lucide-svelte/icons/radio';
 	import { toast } from 'svelte-sonner';
 	import SuperDebug, { type Infer, type SuperValidated, superForm } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
@@ -91,6 +94,7 @@
 	<Form.Field {form} name="jsonInput">
 		<Form.Control>
 			{#snippet children({ props })}
+				<h2 class="my-2">JSON Input</h2>
 				<Form.Label>Paste your JSON-contents here:</Form.Label>
 				<Textarea
 					{...props}
@@ -113,7 +117,7 @@
 		<Button variant="outline" onclick={handleReset}><Eraser class="mr-1 size-4" />Reset</Button>
 		<Button variant="outline" onclick={handleLoadPrevious}>
 			<History class="mr-1 size-4" />
-			Use previous JSON</Button
+			Restore previous JSON</Button
 		>
 		<Form.Button disabled={$formData.jsonInput === appliedJson} type="submit"
 			><Check class="mr-1 size-4" />Apply</Form.Button
@@ -126,13 +130,46 @@
 		</div>
 	{/if}
 	{#if browser}
-		<h2>Live Preview</h2>
-		<div class="max-h-[60vh] resize-y overflow-auto rounded-lg">
-			<SuperDebug
-				status={false}
-				theme="default"
-				data={parseAndValidateJsonReturnError($formData.jsonInput)}
-			/>
-		</div>
+		<h2>Preview JSON data</h2>
+		<Tabs.Root value="live" class="w-full">
+			<Tabs.List>
+				<Tabs.Trigger value="live"
+					><Radio class="mr-1 size-4 text-muted-foreground" />Live Input</Tabs.Trigger
+				>
+				<Tabs.Trigger value="applied"
+					><ListCheck class="mr-1 size-4 text-muted-foreground" />Applied JSON</Tabs.Trigger
+				>
+			</Tabs.List>
+			<Tabs.Content value="live" class="space-y-3">
+				<div class="pt-3">
+					<span class="px-4 font-bold">Live</span>
+					<span class="text-muted-foreground">
+						Spot JSON errors easier before applying using this tab.
+					</span>
+				</div>
+				<div class="max-h-[60vh] resize-y overflow-auto rounded-lg">
+					<SuperDebug
+						status={false}
+						theme="default"
+						data={parseAndValidateJsonReturnError($formData.jsonInput)}
+					/>
+				</div></Tabs.Content
+			>
+			<Tabs.Content value="applied" class="space-y-3">
+				<div class="pt-3">
+					<span class="px-4 font-bold">Applied</span>
+					<span class="text-muted-foreground">
+						Keep a consistent view of the data you are working with using this tab.
+					</span>
+				</div>
+				<div class="max-h-[60vh] resize-y overflow-auto rounded-lg">
+					<SuperDebug
+						status={false}
+						theme="default"
+						data={parseAndValidateJsonReturnError(appliedJson)}
+					/>
+				</div></Tabs.Content
+			>
+		</Tabs.Root>
 	{/if}
 </form>
