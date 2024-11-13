@@ -68,7 +68,7 @@
 	});
 
 	onMount(() => {
-		resizeBento('left');
+		currentBentoFocus.set('left');
 	});
 </script>
 
