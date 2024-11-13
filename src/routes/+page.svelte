@@ -8,6 +8,7 @@
 	} from '$lib/components/json-input-form/json-input-form.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import * as Resizable from '$lib/components/ui/resizable/index.js';
+	import { currentBentoFocus, resizeBento } from '$lib/stores';
 	import type { PaneAPI } from 'paneforge';
 	import { onMount } from 'svelte';
 	import type { Infer, SuperValidated } from 'sveltekit-superforms';
@@ -22,14 +23,12 @@
 		errors: {}
 	};
 
-	let currentBentoFocus: BentoFocus = $state('left');
-
 	let paneLeft: PaneAPI;
 	let paneCenter: PaneAPI;
 	let paneRight: PaneAPI;
 
-	function resizeBento(focus: BentoFocus) {
-		currentBentoFocus = focus;
+	currentBentoFocus.subscribe((focus) => {
+		if (!paneLeft || !paneCenter || !paneRight) return;
 
 		if (focus === 'center') {
 			paneLeft.resize(15);
@@ -66,25 +65,25 @@
 			paneCenter.resize(42.5);
 			paneRight.resize(42.5);
 		}
-	}
+	});
 
 	onMount(() => {
 		resizeBento('left');
 	});
 </script>
 
-<div class="flex w-full justify-center p-8">
-	<Resizable.PaneGroup direction="horizontal" class="rounded-lg border-4 transition-all ">
+<div class="flex w-full flex-col items-center gap-4 p-8">
+	<Resizable.PaneGroup direction="horizontal" class="rounded-lg border-4 transition-all">
 		<Resizable.Pane
 			minSize={10}
 			maxSize={80}
 			bind:this={paneLeft}
 			class="prose max-w-none p-4 transition-[flex] dark:prose-invert"
 		>
-			<JsonInputForm {currentBentoFocus} {resizeBento} {form} />
+			<JsonInputForm currentBentoFocus={$currentBentoFocus} {resizeBento} {form} />
 		</Resizable.Pane>
 
-		<Resizable.Handle class="w-1" withHandle />
+		<Resizable.Handle class="-z-10 w-1" draggable={false} />
 
 		<Resizable.Pane bind:this={paneCenter} minSize={10} maxSize={80} class="p-4 transition-[flex]"
 			>Graph View
@@ -98,7 +97,8 @@
 			</div>
 		</Resizable.Pane>
 
-		<Resizable.Handle withHandle class="w-1" />
+		<!-- <Resizable.Handle withHandle class="w-1" /> -->
+		<Resizable.Handle class="-z-10 w-1" draggable={false} />
 
 		<Resizable.Pane bind:this={paneRight} minSize={10} maxSize={80} class="p-4 transition-[flex]"
 			>Detail View</Resizable.Pane
