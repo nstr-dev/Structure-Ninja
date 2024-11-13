@@ -5,7 +5,7 @@
 </script>
 
 <header
-	class="fixed top-0 z-50 flex h-16 w-full max-w-full flex-1 items-center justify-between px-5 backdrop-blur-[20px]"
+	class="fixed top-0 z-30 flex h-16 w-full max-w-full flex-1 items-center justify-between px-5 backdrop-blur-[20px]"
 >
 	<button
 		class="prose flex flex-shrink-0 cursor-pointer items-center gap-5 opacity-80 transition-all dark:prose-invert hover:translate-x-3 hover:rotate-1 hover:opacity-100"
