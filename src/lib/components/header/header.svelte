@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import Minimap from '$lib/components/minimap/minimap.svelte';
 	import ThemeToggle from '$lib/components/theme-toggle/theme-toggle.svelte';
 </script>
 
@@ -18,7 +19,12 @@
 		<h1 class="m-0 hidden whitespace-nowrap align-middle sm:inline-block">Structure Ninja</h1>
 	</button>
 
-	<div class="flex flex-row-reverse gap-3">
-		<ThemeToggle />
+	<div class="flex items-center gap-14">
+		<div class="scale-[82%]">
+			<Minimap />
+		</div>
+		<div class="flex flex-row-reverse items-center gap-3">
+			<ThemeToggle />
+		</div>
 	</div>
 </header>
