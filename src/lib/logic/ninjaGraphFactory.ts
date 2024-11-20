@@ -5,7 +5,7 @@ type Primitive = string | number | boolean | null;
 type NinjaNode = {
 	id: string;
 	type: 'object' | 'array';
-	value?: Record<string, Primitive>;
+	value?: Primitive | Record<string, Primitive>;
 	childrenIds?: Record<string, string>;
 	parentId?: string;
 	depth?: number;
@@ -33,9 +33,16 @@ export function createNinjaGraphFromJSON(obj: object): NinjaGraph {
 
 	function process(value: unknown, parentId?: string, currentDepth?: number): string {
 		const id = uuidv4();
-		const depth = currentDepth ? currentDepth + 1 : 1;
-
-		if (isObjectWithPrimitivesOnly(value)) {
+		const depth = currentDepth !== undefined ? currentDepth + 1 : 0;
+		if (isPrimitive(value)) {
+			nodes.push({
+				id,
+				type: 'object',
+				value: value,
+				parentId,
+				depth
+			});
+		} else if (isObjectWithPrimitivesOnly(value)) {
 			nodes.push({
 				id,
 				type: 'object',
@@ -70,7 +77,7 @@ export function createNinjaGraphFromJSON(obj: object): NinjaGraph {
 			Object.entries(value as Record<string, unknown>).forEach(([key, childValue]) => {
 				if (isPrimitive(childValue)) {
 					if (!node.value) node.value = {};
-					node.value[key] = childValue;
+					(node.value as Record<string, Primitive>)[key] = childValue;
 				} else {
 					const childId = process(childValue, id, depth);
 					node.childrenIds![key] = childId;

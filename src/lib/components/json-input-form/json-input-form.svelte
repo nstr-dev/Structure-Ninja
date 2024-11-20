@@ -21,6 +21,7 @@
 	import * as Tabs from '$lib/components/ui/tabs/index.js';
 	import { Textarea } from '$lib/components/ui/textarea/index.js';
 	import { parseAndValidateJsonReturnError } from '$lib/logic/jsonFactory';
+	import { currentlyAppliedJSON } from '$lib/stores';
 	import { toastDismiss } from '$lib/utils';
 	import Check from 'lucide-svelte/icons/check';
 	import Eraser from 'lucide-svelte/icons/eraser';
@@ -45,6 +46,10 @@
 
 	let appliedJson = $state('');
 
+	currentlyAppliedJSON.subscribe((json) => {
+		appliedJson = json;
+	});
+
 	const form = superForm(data, {
 		resetForm: false,
 		validators: zodClient(formSchema),
@@ -52,7 +57,7 @@
 			if (!f.valid) toast.error('Please fix the errors in your JSON.', toastDismiss);
 			else {
 				toast.success('JSON applied successfully.', toastDismiss);
-				appliedJson = f.data.jsonInput;
+				currentlyAppliedJSON.set(f.data.jsonInput);
 				localStorage.setItem('previousJson', f.data.jsonInput);
 			}
 		}

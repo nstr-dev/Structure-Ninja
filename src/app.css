@@ -68,6 +68,28 @@
 	}
 }
 
+:root[svelvet-theme='nstr'] {
+	--anchor-border-width: 2px;
+	--anchor-color: hsl(var(--muted));
+	--anchor-connected: hsl(var(--muted-foreground));
+	--anchor-hovering: hsl(var(--muted-foreground));
+	--anchor-connecting: hsl(var(--muted-foreground));
+	--anchor-border-color: hsl(var(--border));
+	--anchor-connected-border: hsl(var(--border));
+	--anchor-hovering-border: hsl(var(--border));
+	--anchor-connecting-border: hsl(var(--border));
+
+	--edge-color: hsl(var(--muted-foreground));
+
+	.dark {
+		--anchor-border-color: red;
+	}
+}
+
+:root[svelvet-theme='nstr'].dark {
+	--anchor-border-color: red;
+}
+
 @layer base {
 	* {
 		@apply border-border;
@@ -120,4 +142,14 @@ body {
 	width: fit-content;
 	height: fit-content;
 	font-size: small;
+}
+
+.svelvet-wrapper:focus {
+	outline: none;
+	box-shadow: none !important;
+}
+
+.anchor-wrapper .svelvet-anchor.s-GroMoOH526RA {
+	box-shadow: 0 0 0px var(--anchor-border-width)
+		var(--anchor-connected-border, var(--default-anchor-connected-border));
 }

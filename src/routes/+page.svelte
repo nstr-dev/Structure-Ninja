@@ -6,7 +6,7 @@
 	import JsonInputForm, {
 		type FormSchema
 	} from '$lib/components/json-input-form/json-input-form.svelte';
-	import Button from '$lib/components/ui/button/button.svelte';
+	import NinjaGraph from '$lib/components/ninja-graph/ninja-graph.svelte';
 	import * as Resizable from '$lib/components/ui/resizable/index.js';
 	import { currentBentoFocus, resizeBento } from '$lib/stores';
 	import type { PaneAPI } from 'paneforge';
@@ -27,7 +27,7 @@
 	let paneCenter: PaneAPI;
 	let paneRight: PaneAPI;
 
-	currentBentoFocus.subscribe((focus) => {
+	const doResize = (focus: BentoFocus) => {
 		if (!paneLeft || !paneCenter || !paneRight) return;
 
 		if (focus === 'center') {
@@ -65,10 +65,12 @@
 			paneCenter.resize(42.5);
 			paneRight.resize(42.5);
 		}
-	});
+	};
+
+	currentBentoFocus.subscribe(doResize);
 
 	onMount(() => {
-		currentBentoFocus.set('left');
+		doResize('left');
 	});
 </script>
 
@@ -85,16 +87,8 @@
 
 		<Resizable.Handle class="-z-10 w-1" draggable={false} />
 
-		<Resizable.Pane bind:this={paneCenter} minSize={10} maxSize={80} class="p-4 transition-[flex]"
-			>Graph View
-			<div>
-				<Button onclick={() => resizeBento('center')}>Center</Button>
-				<Button onclick={() => resizeBento('left')}>Left</Button>
-				<Button onclick={() => resizeBento('right')}>Right</Button>
-				<Button onclick={() => resizeBento('equal')}>Equal</Button>
-				<Button onclick={() => resizeBento('center-left')}>Center-Left</Button>
-				<Button onclick={() => resizeBento('center-right')}>Center-Right</Button>
-			</div>
+		<Resizable.Pane bind:this={paneCenter} minSize={10} maxSize={80} class="p-4 transition-[flex]">
+			<NinjaGraph />
 		</Resizable.Pane>
 
 		<!-- <Resizable.Handle withHandle class="w-1" /> -->
