@@ -87,15 +87,26 @@
 
 		<Resizable.Handle class="-z-10 w-1" draggable={false} />
 
-		<Resizable.Pane bind:this={paneCenter} minSize={10} maxSize={80} class="p-4 transition-[flex]">
+		<Resizable.Pane
+			bind:this={paneCenter}
+			minSize={10}
+			maxSize={80}
+			class="prose max-w-none p-4 transition-[flex] dark:prose-invert"
+		>
+			<h2 class="my-2">Graph View</h2>
 			<NinjaGraph />
 		</Resizable.Pane>
 
 		<!-- <Resizable.Handle withHandle class="w-1" /> -->
 		<Resizable.Handle class="-z-10 w-1" draggable={false} />
 
-		<Resizable.Pane bind:this={paneRight} minSize={10} maxSize={80} class="p-4 transition-[flex]"
-			>Detail View</Resizable.Pane
+		<Resizable.Pane
+			bind:this={paneRight}
+			minSize={10}
+			maxSize={80}
+			class="prose max-w-none p-4 transition-[flex] dark:prose-invert"
+			><h2 class="my-2">Detail view</h2>
+			<p class="my-2">WIP</p></Resizable.Pane
 		>
 	</Resizable.PaneGroup>
 </div>

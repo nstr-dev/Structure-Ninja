@@ -2,6 +2,7 @@
 	import { createNinjaGraphFromJSON } from '$lib/logic/ninjaGraphFactory';
 	import { currentlyAppliedJSON } from '$lib/stores';
 	import { cn } from '$lib/utils';
+	import Bird from 'lucide-svelte/icons/bird';
 	import { Anchor, Background, Node, Svelvet } from 'svelvet';
 
 	const demoObject = {
@@ -57,13 +58,13 @@
 	function getPosition(index: number, depth: number = 0) {
 		return {
 			x: depth * 200,
-			y: index * -100
+			y: index * 100
 		};
 	}
 </script>
 
 {#if appliedJSON}
-	<div class={cn('mt-5 h-full w-full rounded-xl border-4', className)}>
+	<div class={cn('mt-5 h-[92%] w-full rounded-xl border-4', className)}>
 		<Svelvet theme="nstr" locked id="svelvet-ninjagraph">
 			{#each nodes as node, index (node.id)}
 				<Node
@@ -123,8 +124,9 @@
 		</Svelvet>
 	</div>
 {:else}
-	<div class="flex h-full w-full items-center justify-center">
-		<p class="text-2xl text-gray-500">No JSON data to display</p>
+	<div class="flex h-full w-full items-center justify-center gap-5">
+		<Bird class="size-6 flex-shrink-0 text-muted-foreground" />
+		<p class="text-xl font-bold text-muted-foreground">No JSON data to display</p>
 	</div>
 {/if}
 
