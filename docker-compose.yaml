@@ -3,4 +3,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        PUBLIC_SENTRY_DSN: ${PUBLIC_SENTRY_DSN}
     container_name: structure-ninja
