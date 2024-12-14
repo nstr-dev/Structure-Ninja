@@ -1,4 +1,7 @@
 FROM node:20
+
+ARG PUBLIC_SENTRY_DSN
+
 COPY . /app
 WORKDIR /app
 RUN npm ci
